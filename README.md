@@ -33,7 +33,7 @@ This Chrome extension helps users keep track of which posts they have already vi
 5. Load the extension in Chrome:
     - Open Chrome and go to `chrome://extensions/`
     - Enable "Developer mode" in the top right corner.
-    - Click "Load unpacked" and select the `dist` folder from this project.
+    - Click "Load unpacked" and select the `public` folder from this project.
 
 ## Usage
 
