@@ -42,12 +42,12 @@ const getArtistId = (url: URL): number | null => {
   return null;
 }
 
-const getPostId = (url: URL): number | null => {
+const getPostId = (url: URL): string | null => {
   const parametersPathname = url.pathname.split("/");
 
   // search's for the post, if it exists in the URL, get the post ID
   if (url.href.includes("/post/") === true) {
-    return parseInt(parametersPathname[parametersPathname.indexOf("post") + 1]);
+    return parametersPathname[parametersPathname.indexOf("post") + 1];
   }
 
   return null;
@@ -60,10 +60,8 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   if (__hostsAllowed.includes(host) === false) return;
 
   if (changeInfo.status === "complete") {
-    console.log("update completed")
-
     const artistId: number | null = getArtistId(url);
-    const postId: number | null = getPostId(url);
+    const postId: string | null = getPostId(url);
 
     const artists = await getLocalStorage();
 
@@ -90,9 +88,8 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     }
 
     if (postId == null) {
-      console.log("editando o dom")
-
       function injectedFunction(artists, artistId) {
+
         setTimeout(() => {
           const artist = artists.find((x) => x.artistId === artistId);
 

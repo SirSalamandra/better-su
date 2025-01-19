@@ -5,5 +5,5 @@ type LocalStorageResult = {
 type Artist = {
   site: string,
   artistId: number,
-  postsIds: number[]
+  postsIds: string[]
 }
