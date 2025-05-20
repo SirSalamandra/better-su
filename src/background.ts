@@ -7,6 +7,15 @@ chrome.runtime.onInstalled.addListener(async () => {
   await initiateLocalStorage();
 });
 
+// chrome.contextMenus.create({
+//   id: "test",
+//   type: "normal",
+//   title: "This is a test",
+//   // onclick: () => console.log("This is a test")
+// })
+
+// chrome.contextMenus.onClicked.addListener(() => console.log("this is a test"))
+
 const initiateLocalStorage = async () => {
   let data = await getLocalStorage();
 
@@ -53,10 +62,46 @@ const getPostId = (url: URL): string | null => {
   return null;
 }
 
+const addViewedTagOnPost = (postId: string) => {
+  const postCardElement = document.querySelector(`[data-id="${postId}"]`) as HTMLElement;
+
+  if (postCardElement != null) {
+    const cardFooterContent = postCardElement.querySelector('footer > div > div');
+
+    const viewedLabel = document.createElement("label")
+    viewedLabel.innerHTML = "viewed";
+    viewedLabel.style.color = "#b4ffb4"
+
+    cardFooterContent.append(viewedLabel);
+  }
+}
+
+const addAudioToPost = () => {
+  const postAttachmentsElement = document.getElementsByClassName('post__attachments')[0] as HTMLElement;
+
+  if (postAttachmentsElement != null) {
+    const mp3Links = document.querySelectorAll<HTMLAnchorElement>('li > a[href*=".mp3"');
+
+    mp3Links.forEach((mp3Link) => {
+      const parentElement = mp3Link.parentElement;
+
+      const audioElement = document.createElement("audio")
+      audioElement.controls = true;
+
+      const sourceElement = document.createElement("source")
+      sourceElement.src = mp3Link.href;
+      sourceElement.type = "audio/ogg";
+
+      audioElement.append(sourceElement);
+      parentElement.append(audioElement);
+    })
+  }
+}
+
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   const url = new URL(tab.url);
-
   const host = url.host;
+
   if (__hostsAllowed.includes(host) === false) return;
 
   if (changeInfo.status === "complete") {
@@ -94,23 +139,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
           const artist = artists.find((x) => x.artistId === artistId);
 
           if (artist != null) {
-            artist.postsIds.forEach((postId) => {
-              // console.log(`[data-id="${postId}"]`);
-
-              const postElement = document.querySelector(`[data-id="${postId}"]`);
-              // console.log("postElement", postElement);
-
-              if (postElement) {
-                const footerElement = postElement.getElementsByClassName("post-card__footer");
-                // console.log("footerElement", footerElement);
-
-                if (footerElement.length > 0) {
-                  const visualizedNotation = document.createElement("div");
-                  visualizedNotation.innerText = "visualized";
-                  footerElement.item(0).append(visualizedNotation);
-                }
-              }
-            });
+            artist.postsIds.forEach((postId) => addViewedTagOnPost(postId));
           }
         }, 500);
       }
@@ -120,6 +149,18 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
         func: injectedFunction,
         args: [artists, artistId],
       });
+    }
+    else {
+      await chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        func: () => {
+          setTimeout(() => {
+            addAudioToPost();
+          }, 500);
+        },
+        args: [artists, artistId],
+      });
+
     }
   }
 });

@@ -3,7 +3,7 @@
   "name": "Visited URLs Tracker",
   "version": "1.0",
   "description": "Tracks URLs accessed within a website and marks them visually.",
-  "permissions": ["tabs", "storage", "activeTab", "scripting", "webNavigation"],
+  "permissions": ["tabs", "storage", "activeTab", "scripting", "webNavigation", "contextMenus"],
   "host_permissions": ["https://kemono.su/*", "https://coomer.su/*"],
   "background": {
     "service_worker": "dist/background.js"
