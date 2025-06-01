@@ -7,6 +7,6 @@
     "outDir": "./public/dist",
     "esModuleInterop": true
   },
-  "include": ["src/**/*"],
+  "include": ["./src/**/*.ts", "scripts/build.js"],
   "exclude": ["node_modules", "dist"]
 }

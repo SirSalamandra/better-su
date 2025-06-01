@@ -1,17 +1,17 @@
 {
   "manifest_version": 3,
-  "name": "Visited URLs Tracker",
+  "name": "Better Su",
   "version": "1.0",
   "description": "Tracks URLs accessed within a website and marks them visually.",
-  "permissions": ["tabs", "storage", "activeTab", "scripting", "webNavigation", "contextMenus"],
+  "permissions": ["scripting", "tabs", "storage"],
   "host_permissions": ["https://kemono.su/*", "https://coomer.su/*"],
   "background": {
-    "service_worker": "dist/background.js"
+    "service_worker": "background.js"
   },
   "content_scripts": [
     {
       "matches": ["https://kemono.su/*", "https://coomer.su/*"],
-      "js": ["dist/content.js"],
+      "js": ["content.js"],
       "css": ["styles.css"]
     }
   ],

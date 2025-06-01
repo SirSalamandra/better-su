@@ -15,21 +15,29 @@ This Chrome extension helps users keep track of which posts they have already vi
 ## Installation
 
 1. Clone the repository:
+
     ```sh
     git clone https://github.com/SirSalamandra/su-post-visualizer.git
     ```
+
 2. Navigate to the project directory:
+
     ```sh
     cd su-post-visualizer
     ```
+
 3. Install the necessary dependencies:
+
     ```sh
     npm install
     ```
+
 4. Build the extension:
+
     ```sh
     npm run build
     ```
+
 5. Load the extension in Chrome:
     - Open Chrome and go to `chrome://extensions/`
     - Enable "Developer mode" in the top right corner.
