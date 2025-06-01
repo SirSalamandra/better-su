@@ -1,8 +1,6 @@
-import { AddAudioElementOnPage, AddViewedTagOnPost, GetArtistId, GetPostId } from "../utils/common";
+import { GetArtistId, GetPostId, HOSTS_ALLOWED } from "../utils/common";
 import { Database } from "../utils/database";
 import { Messages } from "./utils";
-
-const __hostsAllowed = ["kemono.su", "coomer.su"]
 
 chrome.runtime.onInstalled.addListener(() => {
   console.log("Better .su installed with success");
@@ -12,7 +10,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   const url = new URL(tab.url);
   const host = url.host;
 
-  if (__hostsAllowed.includes(host) === false) {
+  if (HOSTS_ALLOWED.includes(host) === false) {
     return;
   }
 
@@ -22,7 +20,6 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 
   const artistId: string | null = GetArtistId(url);
   const postId: string | null = GetPostId(url);
-
   const storage = await Database.instance.get()
 
   if (artistId != null) {
@@ -56,15 +53,11 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     }, 500);
 
   }
-  // else {
-  //   await chrome.scripting.executeScript({
-  //     target: { tabId: tab.id },
-  //     func: () => {
-  //       setTimeout(() => {
-  //         AddAudioElementOnPage(document);
-  //       }, 500);
-  //     },
-  //     args: [storage, artistId],
-  //   });
-  // }
+  else {
+    setTimeout(() => {
+      chrome.tabs.sendMessage(tabId, {
+        type: Messages.AudioElement,
+      });
+    }, 500);
+  }
 });
