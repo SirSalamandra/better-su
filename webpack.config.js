@@ -1,16 +1,14 @@
 const path = require('path');
 
 module.exports = (env) => {
-  const target = env && env.target || 'chrome'; // 'chrome' or 'firefox'
-
   return {
     entry: {
-      background: `./src/${target}/background.ts`,
-      content: `./src/${target}/content.ts`,
-      popup: `./src/${target}/popup.ts`,
+      background: `./src/background.ts`,
+      content: `./src/content.ts`,
+      popup: `./src/popup.ts`,
     },
     output: {
-      path: path.resolve(__dirname, `dist/${target}`),
+      path: path.resolve(__dirname, `dist/`),
       filename: '[name].js',
     },
     resolve: {

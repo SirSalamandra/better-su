@@ -1,23 +1,10 @@
-import { AddAudioElementOnPage, AddViewedTagOnPost } from "../utils/common"
-import { Database } from "../utils/database";
-import { Messages } from "./utils"
+import { AddAudioElementOnPage, AddViewedTagOnPost } from "./utils/common"
+import { Database } from "./utils/database";
+import { Messages } from "./utils/enums"
 
-chrome.runtime.onMessage.addListener(async (message) => {
-  if (message.type === Messages.ViewedTag) {
-    const { artistId } = message.payload;
-    const storage = await Database.instance.get()
-    const artist = storage.find(x => x.artistId === artistId);
+const browser_api = (typeof browser !== "undefined" && browser) || chrome
 
-    if (artist == null) {
-      return
-    }
-
-    artist.postsIds.forEach((postId) => {
-      AddViewedTagOnPost(document, postId);
-    });
-  }
-
-
+browser_api.runtime.onMessage.addListener(async (message) => {
   switch (message.type as Messages) {
     case Messages.ViewedTag:
       const { artistId } = message.payload;
@@ -42,6 +29,8 @@ const viewedTagHandler = async (artistId: string) => {
     return
   }
 
+  console.log(artist);
+  
   artist.postsIds.forEach((postId) => {
     AddViewedTagOnPost(document, postId);
   });

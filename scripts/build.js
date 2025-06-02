@@ -9,7 +9,7 @@ if (!['chrome', 'firefox'].includes(target)) {
 }
 
 const manifestSource = path.join(__dirname, `../manifests/${target}.manifest.json`);
-const manifestDest = path.join(__dirname, `../dist/${target}/manifest.json`);
+const manifestDest = path.join(__dirname, `../dist/manifest.json`);
 
 fs.copyFileSync(manifestSource, manifestDest);
-console.log(`Copied ${target} manifest to dist/${target}/manifest.json`);
+console.log(`Copied ${target} manifest to dist/manifest.json`);

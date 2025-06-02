@@ -1,12 +1,14 @@
-import { GetArtistId, GetPostId, HOSTS_ALLOWED } from "../utils/common";
-import { Database } from "../utils/database";
-import { Messages } from "./utils";
+import { Messages } from "./utils/enums";
+import { GetArtistId, GetPostId, HOSTS_ALLOWED } from "./utils/common";
+import { Database } from "./utils/database";
 
-chrome.runtime.onInstalled.addListener(() => {
-  console.log("Better .su installed with success");
-});
+const browser_api = (typeof browser !== "undefined" && browser) || chrome
 
-chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+browser_api.runtime.onInstalled.addListener(() => {
+  console.log("better .su installed with success")
+})
+
+browser_api.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   const url = new URL(tab.url);
   const host = url.host;
 
@@ -46,7 +48,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 
   if (postId == null) {
     setTimeout(() => {
-      chrome.tabs.sendMessage(tabId, {
+      browser_api.tabs.sendMessage(tabId, {
         type: Messages.ViewedTag,
         payload: { artistId }
       })
@@ -55,7 +57,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   }
   else {
     setTimeout(() => {
-      chrome.tabs.sendMessage(tabId, {
+      browser_api.tabs.sendMessage(tabId, {
         type: Messages.AudioElement,
       });
     }, 500);

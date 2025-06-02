@@ -2,6 +2,7 @@ export const HOSTS_ALLOWED = ["kemono.su", "coomer.su"]
 
 export const AddViewedTagOnPost = (document: Document, postId: string) => {
   const postCardElement = document.querySelector(`[data-id="${postId}"]`) as HTMLElement;
+  
   if (postCardElement == null) {
     return;
   }

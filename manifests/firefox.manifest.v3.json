@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Better Su",
+  "version": "1.0",
+  "description": "Tracks URLs accessed within a website and marks them visually.",
+  "permissions": ["scripting", "tabs", "storage"],
+  "host_permissions": ["https://kemono.su/*", "https://coomer.su/*"],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://kemono.su/*", "https://coomer.su/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
