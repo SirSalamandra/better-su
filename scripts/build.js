@@ -8,8 +8,14 @@ if (!['chrome', 'firefox'].includes(target)) {
   process.exit(1);
 }
 
-const manifestSource = path.join(__dirname, `../manifests/${target}.manifest.json`);
-const manifestDest = path.join(__dirname, `../dist/manifest.json`);
+const dest = path.join(__dirname, `../dist/`);
 
-fs.copyFileSync(manifestSource, manifestDest);
-console.log(`Copied ${target} manifest to dist/manifest.json`);
+const manifest = path.join(__dirname, `../manifests/${target}.manifest.json`);
+const pop_ui = path.join(__dirname, `../src/popup.html`);
+const styles = path.join(__dirname, `../src/styles.css`);
+
+fs.copyFileSync(manifest, dest + 'manifest.json');
+fs.copyFileSync(pop_ui, dest + 'popup.html')
+fs.copyFileSync(styles, dest + 'styles.css')
+
+console.log(`Copied ${target} files to folder dist`);

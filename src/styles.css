@@ -1,0 +1,4 @@
+.visited-url {
+  color: gray;
+  text-decoration: line-through;
+}
