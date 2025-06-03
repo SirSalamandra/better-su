@@ -1,57 +1,79 @@
-# su-post-visualizer
+# Better Su
 
-Chrome extension to help identify which posts you have already seen on .su sites.
+<!-- A browser extension that enhances the user experience on [kemono.su](https://kemono.su) and [coomer.su](https://coomer.su). -->
 
-## Description
+A browser extension that enhances the user experience on specific sites with domain `.su`.
 
-This Chrome extension helps users keep track of which posts they have already viewed on .su websites. This can be particularly useful for active users of these sites to avoid revisiting the same content.
+---
 
-## Features
+### 🛠️ Tech Stack
 
-- Automatically marks posts that have been viewed.
-- Simple and intuitive interface.
-- Lightweight and easy to install.
+- **TypeScript**
+- **Webpack**
+- **Browser APIs** (Chrome & Firefox)
+- **Local Storage** abstraction for persistent data
 
-## Installation
+---
 
-1. Clone the repository:
+### ✨ Features
 
-    ```sh
-    git clone https://github.com/SirSalamandra/su-post-visualizer.git
-    ```
+- ✅ Automatically adds a **"Viewed"** tag to posts you've visited
+- ✅ Adds an **audio player** for posts with audio attachments
+- 🟡 (Coming Soon) Button to **mark posts as unviewed**
+- 🟡 (Coming Soon) Interface to **manage saved data**
 
-2. Navigate to the project directory:
+---
 
-    ```sh
-    cd su-post-visualizer
-    ```
+### 🌐 Supported Browsers
 
-3. Install the necessary dependencies:
+- ✅ Google Chrome
+- ✅ Mozilla Firefox
 
-    ```sh
-    npm install
-    ```
+---
 
-4. Build the extension:
+### 🚀 Installation & Build
 
-    ```sh
-    npm run build
-    ```
+#### 1. Clone the repository
 
-5. Load the extension in Chrome:
-    - Open Chrome and go to `chrome://extensions/`
-    - Enable "Developer mode" in the top right corner.
-    - Click "Load unpacked" and select the `public` folder from this project.
+```bash
+git clone https://github.com/SirSalamandra/better-su.git
+cd better-su
+```
 
-## Usage
+#### 2. Install dependencies
 
-Once installed, the extension will automatically start tracking posts you have viewed on .su sites. You can see which posts have been marked as viewed directly on the site.
+```bash
+npm install
+```
 
-## Contributing
+#### 3. Build the extension
 
-Contributions are welcome! Please open an issue or submit a pull request for any improvements.
+```bash
+# Build for Chrome
+npm run build chrome
 
-## License
+# Build for Firefox
+npm run build firefox
+```
+
+This will generate the output in the /public directory.
+
+---
+
+### 📋 TODO
+
+- [x] Add "Viewed" tag to previously accessed posts
+- [ ] Button to mark post as "unviewed"
+- [x] Add audio controller to posts with audio attachments
+- [ ] Management interface for stored data
+
+---
+
+### 🤝 Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for improvements or new features.
+
+### 📄 License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
 
