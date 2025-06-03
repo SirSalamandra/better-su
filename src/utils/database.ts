@@ -18,7 +18,6 @@ export const storageWrapper = {
   },
 };
 
-
 export class Database {
   static #instance: Database;
 
@@ -33,20 +32,10 @@ export class Database {
   }
 
   public async get(): Promise<StorageData> {
-    // const result = localStorage.getItem(STORAGE_NAME);
-
-    // if (result == null) {
-    //   this.update([]);
-    //   return [];
-    // }
-
-    // return JSON.parse(result) as StorageData
-
     return await storageWrapper.get();
   }
 
   public async update(data: StorageData): Promise<void> {
-    // localStorage.setItem(STORAGE_NAME, JSON.stringify(data));
     await storageWrapper.set(data);
   }
 }

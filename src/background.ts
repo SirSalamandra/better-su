@@ -13,6 +13,7 @@ browser_api.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   const host = url.host;
 
   if (HOSTS_ALLOWED.includes(host) === false) {
+    browser.action.disable(tabId);
     return;
   }
 
