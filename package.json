@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "webpack"
+    "build": "webpack && node ./scripts/build.js"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.287",

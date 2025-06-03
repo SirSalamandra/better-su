@@ -1,6 +1,6 @@
 const path = require('path');
 
-module.exports = (env) => {
+module.exports = () => {
   return {
     entry: {
       background: `./src/background.ts`,
