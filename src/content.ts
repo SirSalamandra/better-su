@@ -7,7 +7,7 @@ const browser_api = (typeof browser !== "undefined" && browser) || chrome
 browser_api.runtime.onMessage.addListener(async (message) => {
   switch (message.type as Messages) {
     case Messages.ViewedTag:
-      const { artistId } = message.payload;
+      const artistId = message.payload;
       await viewedTagHandler(artistId);
       break;
 
@@ -23,7 +23,7 @@ browser_api.runtime.onMessage.addListener(async (message) => {
 
 const viewedTagHandler = async (artistId: string) => {
   const storage = await Database.instance.get()
-  const artist = storage.find(x => x.artistId === artistId);
+  const artist = storage.find(x => x.creator_id === artistId);
 
   if (artist == null) {
     return
@@ -31,8 +31,8 @@ const viewedTagHandler = async (artistId: string) => {
 
   console.log(artist);
   
-  artist.postsIds.forEach((postId) => {
-    AddViewedTagOnPost(document, postId);
+  artist.posts.forEach((post) => {
+    AddViewedTagOnPost(document, post.post_id);
   });
 }
 

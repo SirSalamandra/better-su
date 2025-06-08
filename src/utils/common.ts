@@ -2,7 +2,7 @@ export const HOSTS_ALLOWED = ["kemono.su", "coomer.su"]
 
 export const AddViewedTagOnPost = (document: Document, postId: string) => {
   const postCardElement = document.querySelector(`[data-id="${postId}"]`) as HTMLElement;
-  
+
   if (postCardElement == null) {
     return;
   }
@@ -40,24 +40,17 @@ export const AddAudioElementOnPage = (document: Document) => {
   }
 }
 
-export const GetArtistId = (url: URL): string | null => {
-  const parametersPathname = url.pathname.split("/");
+export const ExtractDataFromUrl = (url: URL): URLData => {
+  const paramsPathname = url.pathname.split("/");
 
-  // search for the artist, if it exists in the URL, get the artist ID
-  if (url.href.includes("/user/") === true) {
-    return parametersPathname[parametersPathname.indexOf("user") + 1];
-  }
-
-  return null;
+  return {
+    content_origin: null,
+    creator_id: paramsPathname.includes("user") ? paramsPathname[paramsPathname.indexOf("user") + 1] : null,
+    post_id: paramsPathname.includes("post") ? paramsPathname[paramsPathname.indexOf("post") + 1] : null,
+    host: url.host
+  };
 }
 
-export const GetPostId = (url: URL): string | null => {
-  const parametersPathname = url.pathname.split("/");
-
-  // search's for the post, if it exists in the URL, get the post ID
-  if (url.href.includes("/post/") === true) {
-    return parametersPathname[parametersPathname.indexOf("post") + 1];
-  }
-
-  return null;
+export const GetDate = () => {
+  return (new Date()).toJSON();
 }
